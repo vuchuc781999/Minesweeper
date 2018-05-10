@@ -48,7 +48,10 @@ SDL_Texture* Texture::loadTexture(const char* imageTitle)
 
 void Texture::drawTexture(const char* imageTitle)
 {
-	SDL_RenderCopy(Game::renderer, loadTexture(imageTitle), NULL, NULL);
+	SDL_Texture* texture = loadTexture(imageTitle);
+
+	SDL_RenderCopy(Game::renderer, texture, NULL, NULL);
+	SDL_DestroyTexture(texture);
 	SDL_RenderPresent(Game::renderer);
 }
 

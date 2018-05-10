@@ -7,6 +7,7 @@
 
 #include "Map.h"
 #include "Texture.h"
+#include "PlayAgain.h"
 
 SDL_Window* Game::window = nullptr;
 int Game::width = 0;
@@ -20,60 +21,63 @@ bool Game::quit = false;
 
 Game::Game()
 {
-
 }
 
 Game::~Game()
 {
-	width = 0;
-	height = 0;
-	numMines = 0;
 }
 
 void Game::Init(const char* windowTitle, const int& windowPosX, const int& windowPosY, const int& windowWidth, const int& windowHeight, bool fullScreen)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	if (!PlayAgain::playAgain)
 	{
-		notifyError();
-	}
-	else
-	{
-		std::cout << "Subsystem is initialized !!!..." << std::endl;
-
-		window = SDL_CreateWindow(windowTitle, windowPosX, windowPosY, windowWidth, windowHeight, (fullScreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_SHOWN));
-
-		if (window == nullptr)
+		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		{
 			notifyError();
 		}
 		else
 		{
-			std::cout << "Window is created !!!..." << std::endl;
+			std::cout << "Subsystem is initialized !!!..." << std::endl;
+
+			window = SDL_CreateWindow(windowTitle, windowPosX, windowPosY, windowWidth, windowHeight, (fullScreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_SHOWN));
+
+			if (window == nullptr)
+			{
+				notifyError();
+			}
+			else
+			{
+				std::cout << "Window is created !!!..." << std::endl;
+			}
+
+			SDL_Surface* icon = IMG_Load("image/icon.png");
+			SDL_SetWindowIcon(window, icon);
+			SDL_FreeSurface(icon);
+
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+			if (renderer == nullptr)
+			{
+				notifyError();
+			}
+			else
+			{
+				std::cout << "Renderer is created !!!..." << std::endl;
+			}
+
+			isRunning = true;
 		}
-
-		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-		if (renderer == nullptr)
+		if (TTF_Init() != 0)
 		{
 			notifyError();
 		}
 		else
 		{
-			std::cout << "Renderer is created !!!..." << std::endl;
-		}
-
-		isRunning = true;
-	}
-	if (TTF_Init() != 0)
-	{
-		notifyError();
-	}
-	else
-	{
-		font = TTF_OpenFont("arial.ttf", 100);
-		if (font == NULL)
-		{
-			notifyError();
+			font = TTF_OpenFont("arial.ttf", 100);
+			if (font == NULL)
+			{
+				notifyError();
+			}
 		}
 	}
 }
@@ -224,15 +228,29 @@ void Game::render()
 
 void Game::cleanGame()
 {
-	delete mineMap;
-	delete hiddenMap;
-	delete texture;
+	if (!PlayAgain::playAgain)
+	{
+		delete mineMap;
+		delete hiddenMap;
+		delete texture;
 
-	TTF_CloseFont(font);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
-	std::cout << "Game is cleaned !!!..." << std::endl;
+		TTF_CloseFont(font);
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		SDL_Quit();
+		std::cout << "Game is cleaned !!!..." << std::endl;
+	}
+	else
+	{
+		width = 0;
+		height = 0;
+		numMines = 0;
+		isRunning = true;
+
+		delete mineMap;
+		delete hiddenMap;
+		delete texture;
+	}
 }
 
 void Game::notifyError()

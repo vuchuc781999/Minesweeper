@@ -18,14 +18,13 @@ int main(int argc, char* argv[])
 	HWND hWnd = GetConsoleWindow();
 	ShowWindow(hWnd, SW_HIDE);
 
+	Game* game = new Game();
 	PlayAgain playagain;
+
+	game->Init(WINDOW_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WTDTH, WINDOW_HEIGHT, FULL_SCREEN);
 
 	do
 	{
-		Game* game = new Game();
-
-		game->Init(WINDOW_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WTDTH, WINDOW_HEIGHT, FULL_SCREEN);
-
 		StartScreen* startScreen = new StartScreen();
 
 		startScreen->pressStart();
@@ -56,10 +55,9 @@ int main(int argc, char* argv[])
 		playagain.endScreen(WINDOW_WTDTH, WINDOW_HEIGHT);
 
 		game->cleanGame();
-
-		delete game;
-
 	} while (PlayAgain::playAgain);
+
+	delete game;
 
 	//ShowWindow(hWnd, SW_SHOW);
 	//system("pause");

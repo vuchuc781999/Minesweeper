@@ -8,15 +8,15 @@
 
 Map::Map(const int& defaultValue)
 {
-	map = new int*[Game::height];
+	this->map = new int*[Game::height];
 
 	for (int i = 0; i < Game::height; i++)
 	{
-		map[i] = new int[Game::width];
+		this->map[i] = new int[Game::width];
 
 		for (int j = 0; j < Game::width; j++)
 		{
-			map[i][j] = defaultValue;
+			this->map[i][j] = defaultValue;
 		}
 	}
 }
@@ -26,10 +26,10 @@ Map::~Map()
 {
 	for (int i = 0; i < Game::height; i++)
 	{
-		delete map[i];
+		delete this->map[i];
 	}
 
-	delete map;
+	delete this->map;
 }
 
 
@@ -54,7 +54,7 @@ void Map::random()
 		_x = notSelected[pos] % Game::width;
 		_y = notSelected[pos] / Game::width;
 
-		map[_y][_x] = mine;
+		this->map[_y][_x] = mine;
 
 		this->increaseAround(_x, _y);
 
@@ -64,12 +64,12 @@ void Map::random()
 
 int Map::getValue(const int& x, const int& y) const
 {
-	return map[y][x];
+	return this->map[y][x];
 }
 
 void Map::change(const int& x, const int& y, const int& value)
 {
-	map[y][x] = value;
+	this->map[y][x] = value;
 }
 
 void Map::increaseAround(const int& _x, const int& _y)
@@ -82,9 +82,9 @@ void Map::increaseAround(const int& _x, const int& _y)
 			{
 				if (_x + j >= 0 && _x + j < Game::width && _y + i >= 0 && _y + i < Game::height)
 				{
-					if (map[_y + i][_x + j] != mine)
+					if (this->map[_y + i][_x + j] != mine)
 					{
-						map[_y + i][_x + j]++;
+						this->map[_y + i][_x + j]++;
 					}
 				}
 			}

@@ -1,29 +1,16 @@
 #include "StartScreen.h"
 
 #include <string>
-#include <iostream>
+//#include <iostream>
 
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
+
 #include "Texture.h"
+#include "Box.h"
 
 using std::string;
-
-box::box(int _x, int _y, int _w, int _h) : x(_x), y(_y), w(_w), h(_h)
-{
-
-}
-
-bool box::inBox(int _x, int _y) const
-{
-	return (_x > x && _y > y && _x < x + w && _y < y + h);
-}
-
-SDL_Rect box::createDesRect() const
-{
-	return { x, y, w, h };
-}
 
 StartScreen::StartScreen()
 {

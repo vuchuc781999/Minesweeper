@@ -4,7 +4,7 @@
 
 #include "Texture.h"
 #include "Game.h"
-#include "StartScreen.h"
+#include "Box.h"
 
 bool PlayAgain::playAgain = false;
 

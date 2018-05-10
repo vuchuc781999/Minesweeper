@@ -6,6 +6,11 @@
 
 #include "Game.h"
 
+Map::Map()
+{
+	
+}
+
 Map::Map(const int& defaultValue)
 {
 	this->map = new int*[Game::height];
@@ -19,17 +24,21 @@ Map::Map(const int& defaultValue)
 			this->map[i][j] = defaultValue;
 		}
 	}
+	isCreated = true;
 }
 
 
 Map::~Map()
 {
-	for (int i = 0; i < Game::height; i++)
+	if (isCreated)
 	{
-		delete this->map[i];
-	}
+		for (int i = 0; i < Game::height; i++)
+		{
+			delete this->map[i];
+		}
 
-	delete this->map;
+		delete this->map;
+	}
 }
 
 

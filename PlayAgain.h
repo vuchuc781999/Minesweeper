@@ -2,7 +2,7 @@
 
 #include "SDL.h"
 
-#include "StartScreen.h" // box struct.
+#include "Box.h" // box struct.
 
 const box yesButton(210, 614, 79, 53);
 const box noButton(316, 614, 79, 53);

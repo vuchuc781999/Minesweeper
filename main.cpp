@@ -1,3 +1,9 @@
+/*********************************
+ **	MINESWEEPER		**
+ **				**
+ **	Author: Vũ Văn Chức	**
+ *********************************/
+
 #define _WIN32_WINNT 0x0500
 
 #include <iostream>

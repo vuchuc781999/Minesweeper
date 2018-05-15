@@ -51,6 +51,7 @@ private:
 	int opendBoxs;
 	int flags;
 	int noMineBoxs;
+	bool mapIsCreated;
 
 	void update();
 	void open(const int& x,const int& y);

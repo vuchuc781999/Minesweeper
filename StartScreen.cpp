@@ -54,7 +54,7 @@ void StartScreen::pressStart()
 				_wait = false;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				if (event.button.button = SDL_BUTTON_LEFT && startButton.inBox(event.button.x, event.button.y))
+				if (event.button.button = SDL_BUTTON_LEFT && startButton.inbox(event.button.x, event.button.y))
 				{
 					_wait = false;
 				}
@@ -63,10 +63,14 @@ void StartScreen::pressStart()
 			}
 		}
 	}
+}
+
+void StartScreen::loadInputScreen()
+{
 	Texture::drawTexture("image/start_screen_2.png");
 }
 
-bool StartScreen::inputSize()
+bool StartScreen::inputingSize()
 {
 	return wait;
 }
@@ -91,25 +95,25 @@ void StartScreen::updateInput()
 	case SDL_MOUSEBUTTONDOWN:
 		if (event.button.button == SDL_BUTTON_LEFT)
 		{
-			if (widthBox.inBox(event.button.x, event.button.y))
+			if (widthBox.inbox(event.button.x, event.button.y))
 			{
 				wBox = true;
 				hBox = false;
 				mBox = false;
 			}
-			else if (heightBox.inBox(event.button.x, event.button.y))
+			else if (heightBox.inbox(event.button.x, event.button.y))
 			{
 				wBox = false;
 				hBox = true;
 				mBox = false;
 			}
-			else if (mineBox.inBox(event.button.x, event.button.y))
+			else if (mineBox.inbox(event.button.x, event.button.y))
 			{
 				wBox = false;
 				hBox = false;
 				mBox = true;
 			}
-			else if (playButton.inBox(event.button.x, event.button.y))
+			else if (playButton.inbox(event.button.x, event.button.y))
 			{
 				if (Game::width == 0 || Game::height == 0 || Game::numMines == 0)
 				{
@@ -268,4 +272,15 @@ void StartScreen::renderInput()
 	{
 		Texture::drawTexture(unchoosedLine, mineBox.x - 1, mineBox.y - 1);
 	}
+}
+
+void StartScreen::cleanInput()
+{
+	wait = true;
+	width = "";
+	height = "";
+	mine = "";
+	wBox = false;
+	hBox = false;
+	mBox = false;
 }

@@ -13,7 +13,6 @@ public:
 
 private:
 	int** map;
-	bool isCreated = false;
 
 	void increaseAround(const int& _x, const int& _y);
 };

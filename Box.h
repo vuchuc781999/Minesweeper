@@ -12,6 +12,6 @@ struct box
 	box(int _x, int _y, int _w, int _h);
 	~box();
 
-	bool inBox(int x, int y) const;
+	bool inbox(int x, int y) const;
 	SDL_Rect createDesRect() const;
 };

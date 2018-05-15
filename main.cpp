@@ -23,13 +23,15 @@ int main(int argc, char* argv[])
 
 	game->Init(WINDOW_TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WTDTH, WINDOW_HEIGHT, FULL_SCREEN);
 
+	StartScreen* startScreen = new StartScreen();
+
+	startScreen->pressStart();
+
 	do
 	{
-		StartScreen* startScreen = new StartScreen();
+		startScreen->loadInputScreen();
 
-		startScreen->pressStart();
-
-		while (startScreen->inputSize())
+		while (startScreen->inputingSize())
 		{
 			SDL_StartTextInput();
 
@@ -39,7 +41,7 @@ int main(int argc, char* argv[])
 			SDL_StopTextInput();
 		}
 
-		delete startScreen;
+		startScreen->cleanInput();
 
 		if (Game::isRunning)
 		{
@@ -57,6 +59,7 @@ int main(int argc, char* argv[])
 		game->cleanGame();
 	} while (PlayAgain::playAgain);
 
+	delete startScreen;
 	delete game;
 
 	//ShowWindow(hWnd, SW_SHOW);

@@ -24,21 +24,17 @@ Map::Map(const int& defaultValue)
 			this->map[i][j] = defaultValue;
 		}
 	}
-	isCreated = true;
 }
 
 
 Map::~Map()
 {
-	if (isCreated)
+	for (int i = 0; i < Game::height; i++)
 	{
-		for (int i = 0; i < Game::height; i++)
-		{
-			delete this->map[i];
-		}
-
-		delete this->map;
+		delete this->map[i];
 	}
+
+	delete this->map;
 }
 
 

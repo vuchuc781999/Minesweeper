@@ -45,12 +45,12 @@ void PlayAgain::endScreen(const int& winW, const int& winH)
 					wait = false;
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					if (yesButton.inBox(event.button.x, event.button.y))
+					if (yesButton.inbox(event.button.x, event.button.y))
 					{
 						playAgain = true;
 						wait = false;
 					}
-					else if (noButton.inBox(event.button.x, event.button.y))
+					else if (noButton.inbox(event.button.x, event.button.y))
 					{
 						playAgain = false;
 						wait = false;

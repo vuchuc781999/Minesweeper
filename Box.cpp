@@ -10,7 +10,7 @@ box::~box()
 
 }
 
-bool box::inBox(int _x, int _y) const
+bool box::inbox(int _x, int _y) const
 {
 	return (_x > x && _y > y && _x < x + w && _y < y + h);
 }

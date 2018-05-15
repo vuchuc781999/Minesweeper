@@ -13,7 +13,7 @@ const int MAX_INPUT_LENGTH = 6;
 const int MAX_WIDTH = 76;
 const int MAX_HEIGHT = 40;
 
-const box startButton(159, 470, 280, 61);
+const box startButton(158, 469, 283, 64);
 const box widthBox(300, 560, 100, 30);
 const box heightBox(300, 600, 100, 30);
 const box mineBox(300, 640, 100, 30);
@@ -28,9 +28,11 @@ public:
 	~StartScreen();
 
 	void pressStart();
-	bool inputSize();
+	void loadInputScreen();
+	bool inputingSize();
 	void handleInput();
 	void renderInput();
+	void cleanInput();
 
 private:
 	SDL_Event event;

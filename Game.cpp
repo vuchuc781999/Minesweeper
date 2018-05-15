@@ -79,6 +79,7 @@ void Game::Init(const char* windowTitle, const int& windowPosX, const int& windo
 				notifyError();
 			}
 		}
+		mapIsCreated = false;
 	}
 }
 
@@ -96,6 +97,7 @@ void Game::createMap()
 	opendBoxs = 0;
 	flags = 0;
 	noMineBoxs = width * height - numMines;
+	mapIsCreated = true;
 }
 
 void Game::printMap()
@@ -230,9 +232,12 @@ void Game::cleanGame()
 {
 	if (!PlayAgain::playAgain)
 	{
-		delete mineMap;
-		delete hiddenMap;
-		delete texture;
+		if (mapIsCreated)
+		{
+			delete mineMap;
+			delete hiddenMap;
+			delete texture;
+		}
 
 		TTF_CloseFont(font);
 		SDL_DestroyRenderer(renderer);
@@ -250,6 +255,8 @@ void Game::cleanGame()
 		delete mineMap;
 		delete hiddenMap;
 		delete texture;
+
+		mapIsCreated = false;
 	}
 }
 
